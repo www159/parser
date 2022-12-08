@@ -11,6 +11,24 @@ PRIVATE int digit_dfa(char* str, int* pin, char* token);
 PRIVATE int alpha_dfa(char* str, int* pin, char* token);
 PRIVATE int other_dfa(char* str, int* pin, char* token);
 
+PUBLIC void null_hook(char* _, char* __) {
+    return;
+}
+
+PUBLIC void dfa_create(struct dfa_node* dfa) {
+    dfa = (struct dfa_node*)malloc(sizeof(struct dfa_node));
+}
+
+/**
+ * 递归删除
+*/
+PUBLIC void dfa_destroy(struct dfa_node* dfa) {
+    /**
+     * @todo
+    */
+    if (dfa != NULL) free(dfa);
+}
+
 PUBLIC int general_dfa(char* str, int* pin, char* token) {
     int stop = 0;
     int state = 0;
