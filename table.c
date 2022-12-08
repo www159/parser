@@ -31,12 +31,6 @@ PUBLIC void symbol_table_destroy() {
         p = p->next;
     }
 
-    struct alias_table_node *q = alias_table;
-    while (q != NULL) {
-        if (q->addr != NULL) free(q->addr);
-        free(q);
-        q = q->next;
-    }
 }
 
 PUBLIC void symbol_table_print() {
@@ -47,51 +41,27 @@ PUBLIC void symbol_table_print() {
     }
 }
 
-PUBLIC void put_symbol_table(char* name, int symbol_type, struct token_location* location, char* type, char* token) {
+
+PUBLIC int put_symbol_table(char* name, int symbol_type, struct token_location* location, int type) {
     struct symbol_table_node* st_node;
-    struct alias_table_node* at_node;
-    int token_cnt;
 
-    switch (symbol_type) {
-        case FUNCT:
-        case VAR:
-            st_node = (struct symbol_table_node*)malloc(sizeof(struct symbol_table_node));
-            strcpy(st_node->name, name);
-            st_node->symbol_type = symbol_type;
-            strcpy(st_node->type, type);
-            st_node->addr = location;
-            st_node->next = NULL;
-            if (symbol_table_tail == NULL) {
-                symbol_table = symbol_table_tail = st_node;
-            }
-            else {
-                symbol_table_tail->next = st_node;
-            }
-            symbol_table_tail++;
-            token_cnt = symbol_table_cnt++;
-            break;
-        case IMM:
-        case OPERATOR:
-        case KEYWORD:
-            at_node = (struct alias_table_node*)malloc(sizeof(struct alias_table_node));
-            at_node->addr = location;
-            at_node->next = NULL;
-            if (alias_table_tail == NULL) {
-                alias_table = alias_table_tail = at_node;
-            }
-            else {
-                alias_table_tail->next = at_node;
-            }
-            alias_table_tail++;
-            token_cnt = alias_table_cnt++;
-            break;
+    st_node = (struct symbol_table_node*)malloc(sizeof(struct symbol_table_node));
+    strcpy(st_node->name, name);
+    st_node->symbol_type = symbol_type;
+    st_node->type = type;
+    st_node->addr = location;
+    st_node->next = NULL;
+    if (symbol_table_tail == NULL) {
+        symbol_table = symbol_table_tail = st_node;
     }
-
-    sprintf(token, "<%d,%d>", symbol_type, token_cnt);
-    
+    else {
+        symbol_table_tail->next = st_node;
+    }
+    symbol_table_tail = st_node;
+    return symbol_table_cnt++;
 }
 
 
 PUBLIC struct token_location* get_location(char* token) {
-
+    
 }
