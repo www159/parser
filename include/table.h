@@ -1,65 +1,54 @@
 #ifndef _W_TABLE_H_
 #define _W_TABLE_H_
 
-// 符号类型
-#define IMM 0
-#define KEYWORD 1
-#define OPERATOR 2
-#define VAR 3
-#define FUNCT 4
-
+enum CONST_TABLE {
+    /**
+     * 符号类型, 5, 5
+    */
+    IMM, KEYWORD, OPERATOR, VAR, FUNCT,
+    /**
+     * 关键字, 4, 9
+    */
+    WHILE, FOR, IF, ELSE,
+    /**
+     * 运算符, 11, 20
+    */
+    ASSIGN, ADD, MINUS, STAR, DIVIDE ,MOD, LEFT_PAREN, RIGHT_PAREN,
+    AND, OR, NOT,
+    /**
+     * 条件运算符, 9, 29
+    */
+    EQU, N_EQU, LARGER, LESS, LARGER_EQU, LESS_EQU, C_AND, C_OR, C_NOT,
+    /**
+     * 三目运算符
+    */
+    COLON,
+    /**
+     * 界定符, 4, 33
+    */
+    SEMICOLON, SINGLE_QUOTE, LEFT_BRACE, RIGHT_BRACE,
+    /**
+     * 类型关键字, 9, 42
+    */
+    INT16, UINT16, INT32, UINT32, INT64, UINT64, FLOAT32, FLOAT64, STRING,
+    CHAR,
+    /**
+     * 无效关键字, 1, 43
+    */
+    NULL_CONST_NODE
+    /**
+     * 编译无关关键字, 1, 44
+    */
+};
 /**
  * @brief 关键字及其基本类型
  * 直接用define来构造一张无形的表(两个表项)
 */
 
-//  关键字
-#define WHILE 5
-#define FOR 6
-#define IF  7
-#define ELSE    8
-
-//  运算符
-#define ASSIGN 38
-#define ADD 9
-#define MINUS   10
-#define STAR    11
-#define DIVIDE  12
-#define LEFT_PAREN  13
-#define RIGHT_PAREN 14 
-#define AND 15
-#define OR  16
-#define NOT 17
-
-//  条件运算符
-#define EQU 18
-#define N_EQU   19
-#define LARGER  20
-#define LESS    21
-#define LARGER_EQU  22
-#define LESS_EQU    23
-#define C_AND   24
-#define C_OR    25
-
-// 界定符
-#define SEMICOLON   26
-#define LEFTBRACE   27
-#define RIGHTBRACE  28
-
-// 类型关键字
-#define INT16   29
-#define UINT16  30
-#define INT32   31
-#define INT 31
-#define UINT32  32
-#define UINT    32
-#define INT64   33
-#define UINT64  34
-#define FLOAT32 35
-#define FLOAT64 36
-#define DOUBLE  36
-#define STRING  37
-
+#define INT INT32
+#define UINT UINT32
+#define FLOAT FLOAT32
+#define DOUBLE FLOAT64
 //  
 /**
  * 符号表

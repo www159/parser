@@ -5,6 +5,7 @@
 
 #include "global.h"
 #include "table.h"
+#include "dfa.h"
 
 /**
  * 符号表相关操作，增，删，查
@@ -36,7 +37,7 @@ PUBLIC void symbol_table_destroy() {
 PUBLIC void symbol_table_print() {
     struct symbol_table_node* p = symbol_table;
     while (p != NULL) {
-        printf("%10s, %10d, %10s\n", p->name, p->symbol_type, p->type);
+        printf("%10s, %10d, %10d\n", p->name, p->symbol_type, p->type);
         p = p->next;
     }
 }

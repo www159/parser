@@ -1,15 +1,16 @@
 CC := gcc
 CCFLAGS := -g
 
-BUILD_PATH := build
+TOP_DIR := ${CURDIR}
+BUILD_PATH := ${CURDIR}/build
 OBJ_PATH := ${BUILD_PATH}/temp
 BIN_PATH := ${BUILD_PATH}/bin
 TEST_BIN_PATH := ${BUILD_PATH}/test
 TEST_OBJ_PATH := ${OBJ_PATH}/test
 TARGET_OBJ_PATH := ${OBJ_PATH}/target
-TEST_SRC_PATH := test
-SRC_PATH := src
-HEAD_PATH := include
+TEST_SRC_PATH := ${CURDIR}/test
+SRC_PATH := ${CURDIR}/src
+HEAD_PATH := ${CURDIR}/include
 
 
 SRC := $(foreach dir, ${SRC_PATH}, ${wildcard ${dir}/*.c})
@@ -31,7 +32,7 @@ TARGET_WITH_DIR := ${addprefix ${BIN_PATH}/, ${TARGET}}
 CCFLAGS += ${addprefix -I,${SRC_PATH}}
 CCFLAGS += ${addprefix -I,${HEAD_PATH}}
 
-all: make_dir ${TARGET} ${TEST_TARGET}
+all: clean make_dir ${TARGET} ${TEST_TARGET}
 
 ${TEST_TARGET}:%: ${TEST_OBJ_PATH}/%.o ${OBJS_WITH_DIR}
 	${CC} -o ${TEST_BIN_PATH}/$@ $^

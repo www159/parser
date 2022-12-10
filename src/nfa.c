@@ -1,6 +1,7 @@
 #include <malloc.h>
 
 #include "global.h"
+#include "table.h"
 #include "dfa.h"
 #include "nfa.h"
 

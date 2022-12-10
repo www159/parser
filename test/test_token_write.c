@@ -24,8 +24,7 @@ extern int optind, opterr, optopt;
 const char* MIDDLE_FILE_SUFFIX = ".m";
 const char* optstring = "am:";
 
-// PRIVATE char default_dest[MAX_FILE_PATH];
-
+PRIVATE char default_dest[MAX_FILE_PATH];
 PRIVATE void usage();
 PRIVATE void default_mid_path(char* dest, char* src);
 
@@ -34,8 +33,7 @@ PRIVATE void default_mid_path(char* dest, char* src);
  * @param file_path_str 文件路径集合
 */
 PRIVATE void middle_parse(char* files_path_str) {
-    char *token;
-    char dest[MAX_FILE_PATH], src[MAX_FILE_PATH];
+    char *token, *dest, *src;
     char* split = " ";
     int cnt = 0;
     FILE *dest_fp, *src_fp;
@@ -50,10 +48,10 @@ PRIVATE void middle_parse(char* files_path_str) {
     while (token != NULL) {
         cnt++;
         if (cnt == 1) {
-            strcpy(dest, token);
+            dest = token;
         }
         else if (cnt == 2) {
-            strcpy(src, token);
+            src = token;
         }
         else {
             break;
@@ -66,8 +64,8 @@ PRIVATE void middle_parse(char* files_path_str) {
      * 只有一个路径，生成默认目标路径
     */
    if (cnt == 1) {
-
-        strcpy(src, dest);
+        src = dest;
+        dest = default_dest;
         default_mid_path(dest, src);
    }
 
@@ -80,7 +78,6 @@ PRIVATE void middle_parse(char* files_path_str) {
 
     fclose(dest_fp);
     fclose(src_fp);
-    
 }
 
 PUBLIC int main(int argc, char** argv) {

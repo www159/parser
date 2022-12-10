@@ -4,8 +4,8 @@
 #include "global.h"
 #include "scanner.h"
 #include "parser.h"
-#include "dfa.h"
 #include "table.h"
+#include "dfa.h"
 #include "utils.h"
 
  /**
@@ -13,8 +13,7 @@
   * 自动机函数为有副作用的函数
   * parser可以写文件
  */
-// PRIVATE char* str_to_be_parsed[STR_SIZE];
-PRIVATE char* token[TOKEN_SIZE];
+PRIVATE char token[TOKEN_SIZE];
 
 PRIVATE int cur_line, cur_col;
 
@@ -28,10 +27,24 @@ PUBLIC void parser_init() {
     symbol_table_init();
 }
 
+// PUBLIC void parse_error()
 PUBLIC void parse_str(char* str, int line) {
+    int err = general_dfa(str, &cur_col, token);
+    if(err) {
+        parse_error();
+    }
+    // token_print();
+}
+
+PUBLIC void parser_write(FILE* dest) {
+    fputs(token, dest);
     parser_reset();
-    general_dfa(str, &cur_col, token);
-    token_print();
+}
+
+PUBLIC void parse_error() {
+    printf("parser error!\n");
+    printf("in (line, col):(%d, %d)\n", cur_line, cur_col);
+    printf("parser stop!\n");
 }
 
 PRIVATE void parser_reset() {

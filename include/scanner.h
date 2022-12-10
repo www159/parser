@@ -17,4 +17,6 @@ PUBLIC void scanner_init();
 
 PUBLIC void scan_file(FILE* fp);
 
+PUBLIC void scan_and_write(FILE* dest, FILE* src);
+
 #endif

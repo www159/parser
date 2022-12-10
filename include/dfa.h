@@ -27,18 +27,35 @@ struct xfa_node {
     struct xfa_edge* edge;
 };
 
+
+
+#define MAX_KEYWORD_SIZE    10
+#define MAX_KEYWORD_CNT 50
+
+struct keyword_index {
+    char keyword[MAX_KEYWORD_SIZE];
+    int type;
+};
+
+
+#define MAX_IDENTIFIER_SIZE 50
+#define MAX_NUM_SIZE    50
+#define MAX_STR_SIZE    1000
+
 /**
  * dfa的边，为regex做铺垫
 */
 #define LETTER  0
 #define NUMBER  1
 #define EPSILON 2
-#define CHAR    4
+// #define CHAR    4
 struct xfa_edge {
     int dfa_edge_type;
     char ch;
     struct xfa_node* next;
 };
+
+extern struct keyword_index keyword_table[MAX_KEYWORD_CNT];
 
 #define dfa_node xfa_node
 #define dfa_edge xfa_edge

@@ -24,3 +24,15 @@ PUBLIC void else_hook(char* token, char* _) {
 PUBLIC void identifier_hook(char* token, char* name) {
     set_token(token, VAR, NULL_INT, name);
 }
+
+PUBLIC void int_hook(char* token, char* val) {
+    set_token(token, VAR, INT, val);
+}
+
+PUBLIC void float_hook(char* token, char* val) {
+    set_token(token, VAR, FLOAT, val);
+}
+
+PUBLIC void str_hook(char* token, char* val) {
+    set_token(token, VAR, STRING, val);
+}
